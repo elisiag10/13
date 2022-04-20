@@ -1,0 +1,109 @@
+import java.util.*;
+import java.util.Scanner;
+import java.util.Collections;
+import java.io.Console;
+import java.io.*;
+import static java.nio.file.StandardOpenOption.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
+
+public class RentalDemoAndCreateFile {
+
+    public static void main(String[] args) {
+
+        // getcontractNumber();
+
+        Path file = Paths.get("C:\\users\\emorgan2\\source\\repos\\JavaCH12\\Rental\\filename.txt");
+        String s = " ";
+        Scanner input = new Scanner(System.in);
+        int guests;
+        String id;
+        String idString;
+        String name;
+        int payRate;
+        final String QUIT = "0";
+
+        try {
+
+            OutputStream output = new BufferedOutputStream(Files.newOutputStream(file, CREATE));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output));
+
+            System.out.print("Enter contract number: ");
+            id = input.nextLine();
+
+            while (id != QUIT) {
+                getcontractNumber();
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong" + e);
+        }
+
+    }
+
+    public static void getcontractNumber() {
+        Scanner myObj = new Scanner(System.in);
+        while (true) {
+
+            System.out.println("Enter contract number: ");
+            String contractNum = myObj.nextLine();
+            try {
+                if (contractNum.length() == 4) {
+                    getMinutes();
+                    break;
+                } else {
+                    System.out.println("try again");
+                }
+            } catch (Exception e) {
+                System.err.println("Not a valid input. Error :" + e.getMessage());
+                continue;
+            }
+
+        }
+    }
+
+    public static void getMinutes() {
+        int minutes;
+        final int LOW_MIN = 60;
+        final int HIGH_MIN = 7200;
+        Scanner myObj = new Scanner(System.in);
+        while (true) {
+            System.out.print("Enter minutes >> ");
+            minutes = myObj.nextInt();
+            try {
+                if (minutes < LOW_MIN || minutes > HIGH_MIN) {
+                    System.out.println("Time must be between " + LOW_MIN + " minutes and " + HIGH_MIN + " minutes");
+                } else {
+                    getType();
+                    break;
+                }
+
+            } catch (Exception e) {
+                System.err.println("Not a valid input. Error :" + e.getMessage());
+                continue;
+            }
+
+        }
+
+    }
+
+    public static void getType() {
+
+        final String[] equipNameList = { "personal watercraftski", "pontoon boat", "rowboat", "canoe", "kayak",
+                "beachchair", "umbrella", "other" };
+        int type;
+        Scanner myObj = new Scanner(System.in);
+        while (true) {
+            System.out.println("Equipment types:");
+            type = myObj.nextInt();
+
+            if (type <= 8) {
+                for (int x = 0; x < equipNameList.length; x++) {
+                }
+                System.out.println(equipNameList[type]);
+            }
+        }
+    }
+
+}
